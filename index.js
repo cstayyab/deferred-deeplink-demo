@@ -48,7 +48,9 @@ const redirectPage = (deepLinkPath) => `
 
             // Redirect to the store if the app is not installed
             setTimeout(function() {
-                window.location.href = storeLink;
+                if (document.hasFocus()) {
+                    window.location.href = storeLink;
+                }
             }, 2500); // Adjust timeout as needed
         } else {
             // Optionally handle desktop users or show a message
