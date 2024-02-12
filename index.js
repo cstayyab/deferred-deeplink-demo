@@ -78,7 +78,13 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
     }
 })
 
-app.get(`/${iOSBundleId}/*`, (req, res) => {
+app.get(`/:bundleId/*`, (req, res) => {
+    const { bundleId } = req.params
+    if(![iOSBundleId, androidBundleId].includes(bundleId)) {
+        return res.status(404).json({
+            error: 'Invalid Bundle ID.'
+        })
+    }
     const deepLinkPath = req.params[0];
     res.status(200).send(redirectPage(deepLinkPath))
 });
