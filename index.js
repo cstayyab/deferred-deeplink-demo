@@ -29,14 +29,17 @@ const redirectPage = (deepLinkPath) => `
 <script>
     function redirectToAppOrStore() {
         var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        var deepLink = '${deeplinkScheme}://${deepLinkPath}';
+        var deepLink;
         var storeLink;
 
         if (isMobile) {
             // Define deep link and store links
             if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                deepLink = '${deeplinkScheme}://${deepLinkPath}';
                 storeLink = 'https://apps.apple.com/app/id${iOSAppNumericId}';
             } else if (/Android/i.test(navigator.userAgent)) {
+                // Construct the intent URI for Android deep linking
+                deepLink = 'intent://${deepLinkPath}#Intent;scheme=${deeplinkScheme};package=${androidBundleId};end';
                 storeLink = 'https://play.google.com/store/apps/details?id=${androidBundleId}';
             }
 
