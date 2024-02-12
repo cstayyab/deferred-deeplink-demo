@@ -36,3 +36,5 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
 app.listen(port, () => {
   console.log(`Deferred Deeplinkg Demo App listening on port ${port}`)
 })
+
+module.exports = app;
