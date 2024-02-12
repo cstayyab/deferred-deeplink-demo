@@ -5,6 +5,7 @@ const pkgInfo = require('./package.json')
 
 const iOSBundleId = process.env.IOS_BUNDLE_ID || process.env.BUNDLE_ID
 const iOSTeamId = process.env.TEAMID
+const iOSAppNumericId = process.env.IOS_APP_NUMERIC_ID
 const androidBundleId = process.env.ANDROID_BUNDLE_ID || process.env.BUNDLE_ID
 const deeplinkScheme = process.env.DEEP_LINK_SCHEME
 const univeralLink = {
@@ -34,7 +35,7 @@ const redirectPage = (deepLinkPath) => `
         if (isMobile) {
             // Define deep link and store links
             if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                storeLink = 'https://apps.apple.com/app/${iOSBundleId}';
+                storeLink = 'https://apps.apple.com/app/id${iOSAppNumericId}';
             } else if (/Android/i.test(navigator.userAgent)) {
                 storeLink = 'https://play.google.com/store/apps/details?id=${androidBundleId}';
             }
