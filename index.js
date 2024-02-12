@@ -64,11 +64,40 @@ const redirectPage = (deepLinkPath) => `
 
 `
 
+const testPage = (bundleId) => `
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Deep Link</title>
+</head>
+<body>
+    <h1>Deep Link Test Page</h1>
+    <p>Click the link below to test the deep linking functionality.</p>
+    <a href="/${bundleId}/test">Test Deep Link</a>
+</body>
+</html>
+`
+
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to Deferred Deep Link Testing Demo!',
     author: pkgInfo.author
   })
+})
+
+app.get('/testPage', (req, res) => {
+    const userAgent = req.headers['user-agent']
+
+    let bundleId
+    if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        bundleId = iOSBundleId
+    } else if (/Android/i.test(userAgent)) {
+        bundleId = androidBundleId
+    } else {
+        return res.send('Please visit this page on a mobile device.')
+    }
+
+    res.send(testPage(bundleId))
 })
 
 app.get('/.well-known/apple-app-site-association', (req, res) => {
