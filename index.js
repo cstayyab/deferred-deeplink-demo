@@ -36,6 +36,7 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
 })
 
 app.get('/${iOSBundleId}/*', (res, req) => {
+    const deepLinkPath = req.params[0];
     res.status(200).send(`
     <!DOCTYPE html>
 <html>
@@ -46,7 +47,7 @@ app.get('/${iOSBundleId}/*', (res, req) => {
     <script>
         function redirectToAppOrStore() {
             var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            var deepLink = '${deeplinkScheme}://';
+            var deepLink = '${deeplinkScheme}://${deepLinkPath}';
             var storeLink;
 
             if (isMobile) {
