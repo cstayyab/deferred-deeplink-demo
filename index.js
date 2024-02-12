@@ -35,7 +35,7 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
     }
 })
 
-app.get('/${iOSBundleId}/*', (res, req) => {
+app.get(`/${iOSBundleId}/*`, (res, req) => {
     const deepLinkPath = req.params[0];
     res.status(200).send(`
     <!DOCTYPE html>
