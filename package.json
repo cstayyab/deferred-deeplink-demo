@@ -1,0 +1,21 @@
+{
+  "name": "deferred-deeplink-demo",
+  "version": "1.0.0",
+  "description": "quick deployable demo project to test your app deeplinking",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "deeplink",
+    "linking",
+    "deferred-deeplinking",
+    "universal-link"
+  ],
+  "author": "Muhammad Tayyab Sheikh <me@cstayyab.com> (https://cstayyab.com)",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.2",
+    "express": "^4.18.2"
+  }
+}
