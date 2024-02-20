@@ -51,7 +51,7 @@ const redirectPage = (deepLinkPath) => `
                 if (document.hasFocus()) {
                     window.location.href = storeLink;
                 }
-            }, 5); // Adjust timeout as needed
+            }, 100); // Adjust timeout as needed
 
         } else {
             // Optionally handle desktop users or show a message
