@@ -112,6 +112,10 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
     }
 })
 
+app.get('/universalLinkTest/*', (req, res) => {
+    res.send('Universal Link Test');
+});
+
 app.get(`/:bundleId/*`, (req, res) => {
     const { bundleId } = req.params
     if(![iOSBundleId, androidBundleId].includes(bundleId)) {
@@ -121,10 +125,6 @@ app.get(`/:bundleId/*`, (req, res) => {
     }
     const deepLinkPath = req.params[0];
     res.status(200).send(redirectPage(deepLinkPath))
-});
-
-app.get('/universalLinkTest/*', (req, res) => {
-    res.send('Universal Link Test');
 });
 
 app.listen(port, () => {
