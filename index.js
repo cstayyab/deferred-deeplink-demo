@@ -13,7 +13,7 @@ const univeralLink = {
         "apps": [],
         "details": [{
             "appID": `${iOSTeamId}.${iOSBundleId}`,
-            "paths": [`/${iOSBundleId}/*`]
+            "paths": [`/${iOSBundleId}/*`, `/universalLinkTest/*`]
             }
         ]
     }
@@ -121,6 +121,10 @@ app.get(`/:bundleId/*`, (req, res) => {
     }
     const deepLinkPath = req.params[0];
     res.status(200).send(redirectPage(deepLinkPath))
+});
+
+app.get('/universalLinkTest/*', (req, res) => {
+    res.send('Universal Link Test');
 });
 
 app.listen(port, () => {
