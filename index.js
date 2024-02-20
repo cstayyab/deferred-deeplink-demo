@@ -51,7 +51,8 @@ const redirectPage = (deepLinkPath) => `
                 if (document.hasFocus()) {
                     window.location.href = storeLink;
                 }
-            }, 1000); // Adjust timeout as needed
+            }, 5); // Adjust timeout as needed
+
         } else {
             // Optionally handle desktop users or show a message
             alert('Please visit this page on a mobile device.');
