@@ -13,7 +13,7 @@ const univeralLink = {
         "apps": [],
         "details": [{
             "appID": `${iOSTeamId}.${iOSBundleId}`,
-            "paths": [`/${iOSBundleId}/*`, `/universalLinkTest/*`]
+            "paths": [`/${iOSBundleId}/*`, `/universalLinkTest`]
             }
         ]
     }
@@ -51,7 +51,7 @@ const redirectPage = (deepLinkPath) => `
                 if (document.hasFocus()) {
                     window.location.href = storeLink;
                 }
-            }, 2500); // Adjust timeout as needed
+            }, 1000); // Adjust timeout as needed
         } else {
             // Optionally handle desktop users or show a message
             alert('Please visit this page on a mobile device.');
@@ -112,7 +112,7 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
     }
 })
 
-app.get('/universalLinkTest/*', (req, res) => {
+app.get('/universalLinkTest', (req, res) => {
     res.send('Universal Link Test');
 });
 
