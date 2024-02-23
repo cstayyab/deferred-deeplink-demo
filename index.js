@@ -8,6 +8,7 @@ const iOSTeamId = process.env.TEAMID
 const iOSAppNumericId = process.env.IOS_APP_NUMERIC_ID
 const androidBundleId = process.env.ANDROID_BUNDLE_ID || process.env.BUNDLE_ID
 const deeplinkScheme = process.env.DEEP_LINK_SCHEME
+const appWebPage = process.env.APP_WEB_PAGE;
 const univeralLink = {
     "applinks": {
         "apps": [],
@@ -67,6 +68,63 @@ const redirectPage = (deepLinkPath) => `
 
 `
 
+const universalLinkTestPage = () => `
+<!DOCTYPE html>
+<html>
+<head>
+<title>Redirect to App or Store</title>
+</head>
+<body>
+<script>
+    function redirectToAppOrStore() {
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        var os = (/iPhone|iPad|iPod/i.test(navigator.userAgent)) ? 'iOS' : ((/Android/i.test(navigator.userAgent)) ? 'Android' : 'None');
+        var deepLink;
+        var storeLink;
+
+        if (isMobile) {
+            // Define deep link and store links
+            if (os == 'iOS') {
+                storeLink = 'https://apps.apple.com/app/id${iOSAppNumericId}';
+                deepLink = null;
+            } else if (os == 'Android') {
+                // Construct the intent URI for Android deep linking
+                deepLink = 'intent://${deepLinkPath}#Intent;scheme=${deeplinkScheme};package=${androidBundleId};end';
+                storeLink = 'intent://details?id=${androidBundleId}#Intent;scheme=market;action=android.intent.action.VIEW;package=com.android.vending;end';
+            } else {
+                storeLink = null;
+                deepLink = null;
+            }
+
+            // Attempt to redirect to the deep link
+            if(deepLink) {
+                window.location.href = deepLink;
+            }
+
+            // Redirect to the store if the app is not installed
+            setTimeout(function() {
+                if (document.hasFocus()) {
+                    if(storeLink) {
+                        window.location.href = storeLink;
+                    } else {
+                        window.location.href = '${appWebPage}';
+                    }
+                }
+            }, 100); // Adjust timeout as needed
+
+        } else {
+            window.location.href = '${appWebPage}';
+        }
+    }
+
+    // Run the redirect function when the page loads
+    window.onload = redirectToAppOrStore;
+</script>
+</body>
+</html>
+
+`
+
 const testPage = (bundleId) => `
 <!DOCTYPE html>
 <html>
@@ -114,7 +172,7 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
 })
 
 app.get('/universalLinkTest', (req, res) => {
-    res.send('Universal Link Test');
+    res.send(universalLinkTestPage);
 });
 
 app.get(`/:bundleId/*`, (req, res) => {
