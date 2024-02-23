@@ -68,7 +68,7 @@ const redirectPage = (deepLinkPath) => `
 
 `
 
-const universalLinkTestPage = () => `
+const universalLinkTestPage = (deepLinkPath) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,7 +172,8 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
 })
 
 app.get('/universalLinkTest', (req, res) => {
-    res.send(universalLinkTestPage());
+    const deepLinkPath = req.params[0] || 'home';
+    res.send(universalLinkTestPage(deepLinkPath));
 });
 
 app.get(`/:bundleId/*`, (req, res) => {
