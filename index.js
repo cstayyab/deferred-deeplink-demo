@@ -172,7 +172,7 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
 })
 
 app.get('/universalLinkTest', (req, res) => {
-    res.send(universalLinkTestPage);
+    res.send(universalLinkTestPage());
 });
 
 app.get(`/:bundleId/*`, (req, res) => {
