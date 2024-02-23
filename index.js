@@ -171,7 +171,7 @@ app.get('/.well-known/apple-app-site-association', (req, res) => {
     }
 })
 
-app.get('/universalLinkTest/*', (req, res) => {
+app.get(['/universalLinkTest', '/universalLinkTest/*'], (req, res) => {
     const deepLinkPath = req.params[0] || 'home';
     res.send(universalLinkTestPage(deepLinkPath));
 });
